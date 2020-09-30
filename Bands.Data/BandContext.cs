@@ -13,16 +13,25 @@ namespace Bands.Data
         public DbSet<Song> Songs { get; set; }
         public  DbSet<Member> Members { get; set; }
 
-        private string connectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = BandData;";
+        private string connectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = BandTestData;";
 
         public BandContext()
         {
 
         }
 
+        public BandContext(DbContextOptions options) : base(options)
+        {
+
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(connectionString);
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+            
 
         }
 

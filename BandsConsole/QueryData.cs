@@ -11,10 +11,34 @@ namespace BandsConsole
     public class QueryData
     {
 
-        private BandContext _context = new BandContext();
+        private BandContext _context;
+        public QueryData(BandContext context)
+        {
+            _context = context;
+        }
+
         public QueryData()
         {
+            _context = new BandContext();
+        }
 
+        public int InsertNewBand(Band band)
+        {
+            _context.Bands.Add(band);
+            var result = _context.SaveChanges();
+            return result;
+        }
+
+        public int AddMultipleBands(string[] nameList)
+        {
+            var bandList = new List<Band>();
+            foreach (var name in nameList)
+            {
+                bandList.Add(new Band { Name = name });
+            }
+            _context.Bands.AddRange(bandList);
+            var dbResult = _context.SaveChanges();
+            return dbResult;
         }
 
         public List<Song> GetSongs(string name)
