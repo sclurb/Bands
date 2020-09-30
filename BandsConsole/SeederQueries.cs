@@ -15,7 +15,7 @@ namespace BandsConsole
         public SeederQueries()
         {
             //_context.Database.EnsureDeleted();
-            _context.Database.EnsureCreated();
+            //_context.Database.EnsureCreated();
         }
 
         public SongMember MakeJoin(Member member, Song song)
@@ -49,6 +49,7 @@ namespace BandsConsole
             var band1 = new Band
             {
                 Name = "Led Zepplin",
+                BandId = 1,
                 Location = "London, England",
                 FormDate = new DateTime(1968, 01, 01),
                 Members = new List<Member>
@@ -88,7 +89,7 @@ namespace BandsConsole
                             },
                             new Song
                             {
-                                SongName = "Babe I'm Going Tto Leave You"
+                                SongName = "Babe I'm Going to Leave You"
                             },
                             new Song
                             {
@@ -122,6 +123,7 @@ namespace BandsConsole
             var band2 = new Band
             {
                 Name = "The Doors",
+                BandId = 2,
                 Location = "Los Angeles, California",
                 FormDate = new DateTime(1965, 02, 03)
             };
