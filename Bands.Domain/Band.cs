@@ -12,7 +12,7 @@ namespace Bands.Domain
         }
 
         public int Id { get; set; }
-        public int BandId { get; set; }
+       // public int BandId { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
         public DateTime FormDate { get; set; }

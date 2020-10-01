@@ -14,62 +14,72 @@ namespace BandsConsole
         {
             Console.WriteLine("Hello World!");
 
-            
-            //seederQuery.AddBand();
-            seederQuery.GetBands();
+            seederQuery.NeedsSeeding = false;
 
-            var result1 = seederQuery.GetBand("Led Zepplin");
+
+            if (seederQuery.NeedsSeeding)
+            {
+                seederQuery.DatabaseInit();
+
+                seederQuery.AddBand();
+                seederQuery.InsertNewAlbum("The Doors");
+
+                var member1 = seederQuery.GetMember("Robert Plant");
+                var member2 = seederQuery.GetMember("Jimmy Page");
+                var member3 = seederQuery.GetMember("John Paul Jones");
+                var member4 = seederQuery.GetMember("John Bonham");
+                var song1 = seederQuery.GetSong("Good Time Bad Times");
+                var song2 = seederQuery.GetSong("Babe I'm Going to Leave You");
+                var song3 = seederQuery.GetSong("You Shook Me");
+                var song4 = seederQuery.GetSong("Dazed and Confused");
+                var song5 = seederQuery.GetSong("Your Time is Going to Come");
+                var song6 = seederQuery.GetSong("Communication Breakdown");
+                var song7 = seederQuery.GetSong("I Can't Quit You Baby");
+                var song8 = seederQuery.GetSong("How Many More Times");
+                seederQuery.MakeJoin(member1, song1);
+                seederQuery.MakeJoin(member2, song1);
+                seederQuery.MakeJoin(member3, song1);
+                seederQuery.MakeJoin(member4, song1);
+                seederQuery.MakeJoin(member1, song2);
+                seederQuery.MakeJoin(member2, song2);
+                seederQuery.MakeJoin(member3, song2);
+                seederQuery.MakeJoin(member4, song2);
+                seederQuery.MakeJoin(member1, song3);
+                seederQuery.MakeJoin(member2, song3);
+                seederQuery.MakeJoin(member3, song3);
+                seederQuery.MakeJoin(member4, song3);
+                seederQuery.MakeJoin(member1, song4);
+                seederQuery.MakeJoin(member2, song4);
+                seederQuery.MakeJoin(member3, song4);
+                seederQuery.MakeJoin(member4, song4);
+                seederQuery.MakeJoin(member1, song5);
+                seederQuery.MakeJoin(member2, song5);
+                seederQuery.MakeJoin(member3, song5);
+                seederQuery.MakeJoin(member4, song5);
+                seederQuery.MakeJoin(member1, song6);
+                seederQuery.MakeJoin(member2, song6);
+                seederQuery.MakeJoin(member3, song6);
+                seederQuery.MakeJoin(member4, song6);
+                seederQuery.MakeJoin(member1, song7);
+                seederQuery.MakeJoin(member2, song7);
+                seederQuery.MakeJoin(member3, song7);
+                seederQuery.MakeJoin(member4, song7);
+                seederQuery.MakeJoin(member1, song8);
+                seederQuery.MakeJoin(member2, song8);
+                seederQuery.MakeJoin(member3, song8);
+                seederQuery.MakeJoin(member4, song8);
+            }
+
+            //
+            queryData.GetBands();
+
+            var result1 = queryData.GetBand("Led Zepplin");
             Console.WriteLine(result1.Name);
 
-            var result2 = seederQuery.GetBand("Zepp");
+            var result2 = queryData.GetBand("Zepp");
             Console.WriteLine(result2.Name);
 
-            //seederQuery.InsertNewAlbum("The Doors");
 
-            //var member1 = seederQuery.GetMember("Robert Plant");
-            //var member2 = seederQuery.GetMember("Jimmy Page");
-            //var member3 = seederQuery.GetMember("John Paul Jones");
-            //var member4 = seederQuery.GetMember("John Bonham");
-            //var song1 = seederQuery.GetSong("Good Time Bad Times");
-            //var song2 = seederQuery.GetSong("Babe I'm Going to Leave You");
-            //var song3 = seederQuery.GetSong("You Shook Me");
-            //var song4 = seederQuery.GetSong("Dazed and Confused");
-            //var song5 = seederQuery.GetSong("Your Time is Going to Come");
-            //var song6 = seederQuery.GetSong("Communication Breakdown");
-            //var song7 = seederQuery.GetSong("I Can't Quit You Baby");
-            //var song8 = seederQuery.GetSong("How Many More Times");
-            //seederQuery.MakeJoin(member1, song1);
-            //seederQuery.MakeJoin(member2, song1);
-            //seederQuery.MakeJoin(member3, song1);
-            //seederQuery.MakeJoin(member4, song1);
-            //seederQuery.MakeJoin(member1, song2);
-            //seederQuery.MakeJoin(member2, song2);
-            //seederQuery.MakeJoin(member3, song2);
-            //seederQuery.MakeJoin(member4, song2);
-            //seederQuery.MakeJoin(member1, song3);
-            //seederQuery.MakeJoin(member2, song3);
-            //seederQuery.MakeJoin(member3, song3);
-            //seederQuery.MakeJoin(member4, song3);
-            //seederQuery.MakeJoin(member1, song4);
-            //seederQuery.MakeJoin(member2, song4);
-            //seederQuery.MakeJoin(member3, song4);
-            //seederQuery.MakeJoin(member4, song4);
-            //seederQuery.MakeJoin(member1, song5);
-            //seederQuery.MakeJoin(member2, song5);
-            //seederQuery.MakeJoin(member3, song5);
-            //seederQuery.MakeJoin(member4, song5);
-            //seederQuery.MakeJoin(member1, song6);
-            //seederQuery.MakeJoin(member2, song6);
-            //seederQuery.MakeJoin(member3, song6);
-            //seederQuery.MakeJoin(member4, song6);
-            //seederQuery.MakeJoin(member1, song7);
-            //seederQuery.MakeJoin(member2, song7);
-            //seederQuery.MakeJoin(member3, song7);
-            //seederQuery.MakeJoin(member4, song7);
-            //seederQuery.MakeJoin(member1, song8);
-            //seederQuery.MakeJoin(member2, song8);
-            //seederQuery.MakeJoin(member3, song8);
-            //seederQuery.MakeJoin(member4, song8);
 
             Console.WriteLine("----");
 
@@ -82,6 +92,18 @@ namespace BandsConsole
             }
 
             var songList = queryData.GetSongsWithWriters("Led Zepplin");
+            int count = 0;
+            foreach (var song in songList)
+            {
+                count++;
+                
+                Console.WriteLine(count + " : " + song.SongName + "\n \tWriters: ");
+                foreach (var writer in song.SongMembers)
+                {
+                    Console.WriteLine($"\t\t{writer.Member.Name}");
+
+                }
+            }
 
             Console.ReadKey();
         }

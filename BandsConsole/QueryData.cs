@@ -55,17 +55,58 @@ namespace BandsConsole
 
         public List<Song> GetSongsWithWriters(string name)
         {
-            var songsWithWriters = _context.Bands.Where(band => band.Name == name)
-                .Select(b => new
-                {
-                    Band = b,
-                    //Songs = b.SongMembers.Select(sm => sm.Song)
-                    Writers = b.SongMembers.Select(w => w.Member)
-                })
+            var songsWithWriters = _context.Bands
+                .Include(a => a.Albums)
+                .ThenInclude(sm => sm.Songs)
+                .ThenInclude(s => s.SongMembers)
+                .ThenInclude(m => m.Member)
+                .FirstOrDefault(band => band.Name == name);
+
+            var songList = songsWithWriters.Albums
+                .Select(s => s.Songs)
                 .FirstOrDefault();
 
-            var songList = new List<Song>();
             return songList;
         }
+
+        public void GetBands()
+        {
+            var bands = _context.Bands.ToList();
+            Console.WriteLine($"The number of bands in the database is {bands.Count}");
+
+            foreach (var band in bands)
+            {
+                Console.WriteLine($"The band's name is: {band.Name}");
+                Console.WriteLine($"{band.Name} was formed in {band.FormDate} in : {band.Location}");
+            }
+        }
+
+        public Band GetBand(string name)
+        {
+            var bands = _context.Bands.OrderBy(b => b.Name).ToList();
+
+            if (bands != null)
+            {
+                foreach (var band in bands.Where(b => b.Name.Contains(name)))
+                {
+                    return band;
+                }
+            }
+            return new Band
+            {
+                Name = "Not Found"
+            };
+
+        }
+
+
     }
 }
+
+
+                //.Select(b => new
+                // {
+                //     Band = b,
+                //     Songs = b.SongMembers.Select(sm => sm.Song),
+                //     Writers = b.SongMembers.Select(w => w.Member)
+                // })

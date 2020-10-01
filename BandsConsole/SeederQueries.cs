@@ -11,11 +11,21 @@ namespace BandsConsole
     {
 
         private BandContext _context = new BandContext();
+        public bool NeedsSeeding { get; set; }
 
         public SeederQueries()
         {
-            //_context.Database.EnsureDeleted();
-            //_context.Database.EnsureCreated();
+
+
+        }
+
+        public void DatabaseInit()
+        {
+            if (NeedsSeeding)
+            {
+                _context.Database.EnsureDeleted();
+                _context.Database.EnsureCreated();
+            }
         }
 
         public SongMember MakeJoin(Member member, Song song)
@@ -49,7 +59,7 @@ namespace BandsConsole
             var band1 = new Band
             {
                 Name = "Led Zepplin",
-                BandId = 1,
+                //BandId = 1,
                 Location = "London, England",
                 FormDate = new DateTime(1968, 01, 01),
                 Members = new List<Member>
@@ -120,52 +130,7 @@ namespace BandsConsole
                     }
                 }
             };
-            var band2 = new Band
-            {
-                Name = "The Doors",
-                BandId = 2,
-                Location = "Los Angeles, California",
-                FormDate = new DateTime(1965, 02, 03)
-            };
-
-            _context.AddRange(band1, band2);
-            _context.SaveChanges();
-
-        }
-
-        public void GetBands()
-        {
-            var bands = _context.Bands.ToList();
-            Console.WriteLine($"The number of bands in the database is {bands.Count}");
-
-            foreach (var band in bands)
-            {
-                Console.WriteLine($"The band's name is: {band.Name}");
-                Console.WriteLine($"{band.Name} was formed in {band.FormDate} in : {band.Location}");
-            }
-        }
-
-        public Band GetBand(string name)
-        {
-            var bands = _context.Bands.OrderBy(b => b.Name).ToList();
-
-            if(bands != null)
-            {
-                foreach (var band in bands.Where(b => b.Name.Contains(name)))
-                {
-                    return band;
-                }
-            }
-            return new Band
-                {
-                    Name = "Not Found"
-                };
-
-        }
-
-        public void InsertNewAlbum(string bandName)
-        {
-            var members = new List<Member>
+            var doorMembers = new List<Member>
             {
                 new Member
                 {
@@ -188,7 +153,21 @@ namespace BandsConsole
                     JoinDate = new DateTime(1965, 06, 15)
                 }
             };
+            var band2 = new Band
+            {
+                Name = "The Doors",
+                Location = "Los Angeles, California",
+                FormDate = new DateTime(1965, 02, 03),
+                Members = doorMembers
+            };
+            _context.AddRange(band1, band2);
+            _context.SaveChanges();
+        }
 
+
+
+        public void InsertNewAlbum(string bandName)
+        {
             var album = (new Album
             {
                 AlbumName = "The Doors",
@@ -240,7 +219,6 @@ namespace BandsConsole
                             SongName = "The End"
                         }
                     }
-
             });
             var band = _context.Bands.Where(b => b.Name == bandName).FirstOrDefault();
             if(band != null)
@@ -248,7 +226,6 @@ namespace BandsConsole
                 band.Albums.Add(album);
             }
             _context.SaveChanges();
-
         }
 
     }

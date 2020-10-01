@@ -13,7 +13,7 @@ namespace Bands.Data
         public DbSet<Song> Songs { get; set; }
         public  DbSet<Member> Members { get; set; }
 
-        private string connectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = BandTestData;";
+        private string connectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = BandData;";
 
         public BandContext()
         {
